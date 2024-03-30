@@ -36,3 +36,6 @@ bin/
 .vscode/
 .idea/
 *.swp
+
+# Exclude sepcific file in a directory 这对于tracked并保存到repository中的文件并不起作用
+configs/config.yaml
