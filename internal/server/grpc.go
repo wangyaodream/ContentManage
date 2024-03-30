@@ -1,7 +1,7 @@
 package server
 
 import (
-	v1 "ContentManage/api/helloworld/v1"
+	"ContentManage/api/operate"
 	"ContentManage/internal/conf"
 	"ContentManage/internal/service"
 
@@ -11,7 +11,7 @@ import (
 )
 
 // NewGRPCServer new a gRPC server.
-func NewGRPCServer(c *conf.Server, greeter *service.GreeterService, logger log.Logger) *grpc.Server {
+func NewGRPCServer(c *conf.Server, app *service.AppService, logger log.Logger) *grpc.Server {
 	var opts = []grpc.ServerOption{
 		grpc.Middleware(
 			recovery.Recovery(),
@@ -27,6 +27,7 @@ func NewGRPCServer(c *conf.Server, greeter *service.GreeterService, logger log.L
 		opts = append(opts, grpc.Timeout(c.Grpc.Timeout.AsDuration()))
 	}
 	srv := grpc.NewServer(opts...)
-	v1.RegisterGreeterServer(srv, greeter)
+	// 这里修改为我们自己创建的server
+	operate.RegisterAppServer(srv, app)
 	return srv
 }
