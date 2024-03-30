@@ -20,14 +20,41 @@ const (
 	_ = protoimpl.EnforceVersion(protoimpl.MaxVersion - 20)
 )
 
-type CreateAppRequest struct {
+type Content struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
+
+	// 内容ID
+	Id int64 `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
+	// 内容标题
+	Title string `protobuf:"bytes,2,opt,name=title,proto3" json:"title,omitempty"`
+	// 视频播放URL
+	VideoUrl string `protobuf:"bytes,3,opt,name=video_url,json=videoUrl,proto3" json:"video_url,omitempty"`
+	// 作者
+	Author string `protobuf:"bytes,4,opt,name=author,proto3" json:"author,omitempty"`
+	// 内容描述
+	Description string `protobuf:"bytes,5,opt,name=Description,proto3" json:"Description,omitempty"`
+	// 封面URL
+	Thumbnail string `protobuf:"bytes,6,opt,name=thumbnail,proto3" json:"thumbnail,omitempty"`
+	// 内容分类
+	Category string `protobuf:"bytes,7,opt,name=category,proto3" json:"category,omitempty"`
+	// 内容时长
+	Duration int64 `protobuf:"varint,8,opt,name=duration,proto3" json:"duration,omitempty"`
+	// 分辨率
+	Resolution string `protobuf:"bytes,9,opt,name=resolution,proto3" json:"resolution,omitempty"`
+	// 文件大小
+	FileSize int64 `protobuf:"varint,10,opt,name=file_size,json=fileSize,proto3" json:"file_size,omitempty"`
+	// 文件格式
+	Format string `protobuf:"bytes,11,opt,name=format,proto3" json:"format,omitempty"`
+	// 视频质量 1-高清 2-标清
+	Quality int32 `protobuf:"varint,12,opt,name=quality,proto3" json:"quality,omitempty"`
+	// 审核状态
+	ApprovalStatus int32 `protobuf:"varint,13,opt,name=approval_status,json=approvalStatus,proto3" json:"approval_status,omitempty"`
 }
 
-func (x *CreateAppRequest) Reset() {
-	*x = CreateAppRequest{}
+func (x *Content) Reset() {
+	*x = Content{}
 	if protoimpl.UnsafeEnabled {
 		mi := &file_operate_app_proto_msgTypes[0]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -35,13 +62,13 @@ func (x *CreateAppRequest) Reset() {
 	}
 }
 
-func (x *CreateAppRequest) String() string {
+func (x *Content) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*CreateAppRequest) ProtoMessage() {}
+func (*Content) ProtoMessage() {}
 
-func (x *CreateAppRequest) ProtoReflect() protoreflect.Message {
+func (x *Content) ProtoReflect() protoreflect.Message {
 	mi := &file_operate_app_proto_msgTypes[0]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -53,19 +80,113 @@ func (x *CreateAppRequest) ProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
-// Deprecated: Use CreateAppRequest.ProtoReflect.Descriptor instead.
-func (*CreateAppRequest) Descriptor() ([]byte, []int) {
+// Deprecated: Use Content.ProtoReflect.Descriptor instead.
+func (*Content) Descriptor() ([]byte, []int) {
 	return file_operate_app_proto_rawDescGZIP(), []int{0}
 }
 
-type CreateAppReply struct {
+func (x *Content) GetId() int64 {
+	if x != nil {
+		return x.Id
+	}
+	return 0
+}
+
+func (x *Content) GetTitle() string {
+	if x != nil {
+		return x.Title
+	}
+	return ""
+}
+
+func (x *Content) GetVideoUrl() string {
+	if x != nil {
+		return x.VideoUrl
+	}
+	return ""
+}
+
+func (x *Content) GetAuthor() string {
+	if x != nil {
+		return x.Author
+	}
+	return ""
+}
+
+func (x *Content) GetDescription() string {
+	if x != nil {
+		return x.Description
+	}
+	return ""
+}
+
+func (x *Content) GetThumbnail() string {
+	if x != nil {
+		return x.Thumbnail
+	}
+	return ""
+}
+
+func (x *Content) GetCategory() string {
+	if x != nil {
+		return x.Category
+	}
+	return ""
+}
+
+func (x *Content) GetDuration() int64 {
+	if x != nil {
+		return x.Duration
+	}
+	return 0
+}
+
+func (x *Content) GetResolution() string {
+	if x != nil {
+		return x.Resolution
+	}
+	return ""
+}
+
+func (x *Content) GetFileSize() int64 {
+	if x != nil {
+		return x.FileSize
+	}
+	return 0
+}
+
+func (x *Content) GetFormat() string {
+	if x != nil {
+		return x.Format
+	}
+	return ""
+}
+
+func (x *Content) GetQuality() int32 {
+	if x != nil {
+		return x.Quality
+	}
+	return 0
+}
+
+func (x *Content) GetApprovalStatus() int32 {
+	if x != nil {
+		return x.ApprovalStatus
+	}
+	return 0
+}
+
+type CreateContentReq struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
+
+	// 内容
+	Content *Content `protobuf:"bytes,1,opt,name=content,proto3" json:"content,omitempty"`
 }
 
-func (x *CreateAppReply) Reset() {
-	*x = CreateAppReply{}
+func (x *CreateContentReq) Reset() {
+	*x = CreateContentReq{}
 	if protoimpl.UnsafeEnabled {
 		mi := &file_operate_app_proto_msgTypes[1]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -73,13 +194,13 @@ func (x *CreateAppReply) Reset() {
 	}
 }
 
-func (x *CreateAppReply) String() string {
+func (x *CreateContentReq) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*CreateAppReply) ProtoMessage() {}
+func (*CreateContentReq) ProtoMessage() {}
 
-func (x *CreateAppReply) ProtoReflect() protoreflect.Message {
+func (x *CreateContentReq) ProtoReflect() protoreflect.Message {
 	mi := &file_operate_app_proto_msgTypes[1]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -91,19 +212,26 @@ func (x *CreateAppReply) ProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
-// Deprecated: Use CreateAppReply.ProtoReflect.Descriptor instead.
-func (*CreateAppReply) Descriptor() ([]byte, []int) {
+// Deprecated: Use CreateContentReq.ProtoReflect.Descriptor instead.
+func (*CreateContentReq) Descriptor() ([]byte, []int) {
 	return file_operate_app_proto_rawDescGZIP(), []int{1}
 }
 
-type UpdateAppRequest struct {
+func (x *CreateContentReq) GetContent() *Content {
+	if x != nil {
+		return x.Content
+	}
+	return nil
+}
+
+type CreateContentRsp struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 }
 
-func (x *UpdateAppRequest) Reset() {
-	*x = UpdateAppRequest{}
+func (x *CreateContentRsp) Reset() {
+	*x = CreateContentRsp{}
 	if protoimpl.UnsafeEnabled {
 		mi := &file_operate_app_proto_msgTypes[2]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -111,13 +239,13 @@ func (x *UpdateAppRequest) Reset() {
 	}
 }
 
-func (x *UpdateAppRequest) String() string {
+func (x *CreateContentRsp) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*UpdateAppRequest) ProtoMessage() {}
+func (*CreateContentRsp) ProtoMessage() {}
 
-func (x *UpdateAppRequest) ProtoReflect() protoreflect.Message {
+func (x *CreateContentRsp) ProtoReflect() protoreflect.Message {
 	mi := &file_operate_app_proto_msgTypes[2]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -129,275 +257,9 @@ func (x *UpdateAppRequest) ProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
-// Deprecated: Use UpdateAppRequest.ProtoReflect.Descriptor instead.
-func (*UpdateAppRequest) Descriptor() ([]byte, []int) {
+// Deprecated: Use CreateContentRsp.ProtoReflect.Descriptor instead.
+func (*CreateContentRsp) Descriptor() ([]byte, []int) {
 	return file_operate_app_proto_rawDescGZIP(), []int{2}
-}
-
-type UpdateAppReply struct {
-	state         protoimpl.MessageState
-	sizeCache     protoimpl.SizeCache
-	unknownFields protoimpl.UnknownFields
-}
-
-func (x *UpdateAppReply) Reset() {
-	*x = UpdateAppReply{}
-	if protoimpl.UnsafeEnabled {
-		mi := &file_operate_app_proto_msgTypes[3]
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		ms.StoreMessageInfo(mi)
-	}
-}
-
-func (x *UpdateAppReply) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
-
-func (*UpdateAppReply) ProtoMessage() {}
-
-func (x *UpdateAppReply) ProtoReflect() protoreflect.Message {
-	mi := &file_operate_app_proto_msgTypes[3]
-	if protoimpl.UnsafeEnabled && x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
-}
-
-// Deprecated: Use UpdateAppReply.ProtoReflect.Descriptor instead.
-func (*UpdateAppReply) Descriptor() ([]byte, []int) {
-	return file_operate_app_proto_rawDescGZIP(), []int{3}
-}
-
-type DeleteAppRequest struct {
-	state         protoimpl.MessageState
-	sizeCache     protoimpl.SizeCache
-	unknownFields protoimpl.UnknownFields
-}
-
-func (x *DeleteAppRequest) Reset() {
-	*x = DeleteAppRequest{}
-	if protoimpl.UnsafeEnabled {
-		mi := &file_operate_app_proto_msgTypes[4]
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		ms.StoreMessageInfo(mi)
-	}
-}
-
-func (x *DeleteAppRequest) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
-
-func (*DeleteAppRequest) ProtoMessage() {}
-
-func (x *DeleteAppRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_operate_app_proto_msgTypes[4]
-	if protoimpl.UnsafeEnabled && x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
-}
-
-// Deprecated: Use DeleteAppRequest.ProtoReflect.Descriptor instead.
-func (*DeleteAppRequest) Descriptor() ([]byte, []int) {
-	return file_operate_app_proto_rawDescGZIP(), []int{4}
-}
-
-type DeleteAppReply struct {
-	state         protoimpl.MessageState
-	sizeCache     protoimpl.SizeCache
-	unknownFields protoimpl.UnknownFields
-}
-
-func (x *DeleteAppReply) Reset() {
-	*x = DeleteAppReply{}
-	if protoimpl.UnsafeEnabled {
-		mi := &file_operate_app_proto_msgTypes[5]
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		ms.StoreMessageInfo(mi)
-	}
-}
-
-func (x *DeleteAppReply) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
-
-func (*DeleteAppReply) ProtoMessage() {}
-
-func (x *DeleteAppReply) ProtoReflect() protoreflect.Message {
-	mi := &file_operate_app_proto_msgTypes[5]
-	if protoimpl.UnsafeEnabled && x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
-}
-
-// Deprecated: Use DeleteAppReply.ProtoReflect.Descriptor instead.
-func (*DeleteAppReply) Descriptor() ([]byte, []int) {
-	return file_operate_app_proto_rawDescGZIP(), []int{5}
-}
-
-type GetAppRequest struct {
-	state         protoimpl.MessageState
-	sizeCache     protoimpl.SizeCache
-	unknownFields protoimpl.UnknownFields
-}
-
-func (x *GetAppRequest) Reset() {
-	*x = GetAppRequest{}
-	if protoimpl.UnsafeEnabled {
-		mi := &file_operate_app_proto_msgTypes[6]
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		ms.StoreMessageInfo(mi)
-	}
-}
-
-func (x *GetAppRequest) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
-
-func (*GetAppRequest) ProtoMessage() {}
-
-func (x *GetAppRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_operate_app_proto_msgTypes[6]
-	if protoimpl.UnsafeEnabled && x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
-}
-
-// Deprecated: Use GetAppRequest.ProtoReflect.Descriptor instead.
-func (*GetAppRequest) Descriptor() ([]byte, []int) {
-	return file_operate_app_proto_rawDescGZIP(), []int{6}
-}
-
-type GetAppReply struct {
-	state         protoimpl.MessageState
-	sizeCache     protoimpl.SizeCache
-	unknownFields protoimpl.UnknownFields
-}
-
-func (x *GetAppReply) Reset() {
-	*x = GetAppReply{}
-	if protoimpl.UnsafeEnabled {
-		mi := &file_operate_app_proto_msgTypes[7]
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		ms.StoreMessageInfo(mi)
-	}
-}
-
-func (x *GetAppReply) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
-
-func (*GetAppReply) ProtoMessage() {}
-
-func (x *GetAppReply) ProtoReflect() protoreflect.Message {
-	mi := &file_operate_app_proto_msgTypes[7]
-	if protoimpl.UnsafeEnabled && x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
-}
-
-// Deprecated: Use GetAppReply.ProtoReflect.Descriptor instead.
-func (*GetAppReply) Descriptor() ([]byte, []int) {
-	return file_operate_app_proto_rawDescGZIP(), []int{7}
-}
-
-type ListAppRequest struct {
-	state         protoimpl.MessageState
-	sizeCache     protoimpl.SizeCache
-	unknownFields protoimpl.UnknownFields
-}
-
-func (x *ListAppRequest) Reset() {
-	*x = ListAppRequest{}
-	if protoimpl.UnsafeEnabled {
-		mi := &file_operate_app_proto_msgTypes[8]
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		ms.StoreMessageInfo(mi)
-	}
-}
-
-func (x *ListAppRequest) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
-
-func (*ListAppRequest) ProtoMessage() {}
-
-func (x *ListAppRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_operate_app_proto_msgTypes[8]
-	if protoimpl.UnsafeEnabled && x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
-}
-
-// Deprecated: Use ListAppRequest.ProtoReflect.Descriptor instead.
-func (*ListAppRequest) Descriptor() ([]byte, []int) {
-	return file_operate_app_proto_rawDescGZIP(), []int{8}
-}
-
-type ListAppReply struct {
-	state         protoimpl.MessageState
-	sizeCache     protoimpl.SizeCache
-	unknownFields protoimpl.UnknownFields
-}
-
-func (x *ListAppReply) Reset() {
-	*x = ListAppReply{}
-	if protoimpl.UnsafeEnabled {
-		mi := &file_operate_app_proto_msgTypes[9]
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		ms.StoreMessageInfo(mi)
-	}
-}
-
-func (x *ListAppReply) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
-
-func (*ListAppReply) ProtoMessage() {}
-
-func (x *ListAppReply) ProtoReflect() protoreflect.Message {
-	mi := &file_operate_app_proto_msgTypes[9]
-	if protoimpl.UnsafeEnabled && x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
-}
-
-// Deprecated: Use ListAppReply.ProtoReflect.Descriptor instead.
-func (*ListAppReply) Descriptor() ([]byte, []int) {
-	return file_operate_app_proto_rawDescGZIP(), []int{9}
 }
 
 var File_operate_app_proto protoreflect.FileDescriptor
@@ -405,44 +267,45 @@ var File_operate_app_proto protoreflect.FileDescriptor
 var file_operate_app_proto_rawDesc = []byte{
 	0x0a, 0x11, 0x6f, 0x70, 0x65, 0x72, 0x61, 0x74, 0x65, 0x2f, 0x61, 0x70, 0x70, 0x2e, 0x70, 0x72,
 	0x6f, 0x74, 0x6f, 0x12, 0x0b, 0x61, 0x70, 0x69, 0x2e, 0x6f, 0x70, 0x65, 0x72, 0x61, 0x74, 0x65,
-	0x22, 0x12, 0x0a, 0x10, 0x43, 0x72, 0x65, 0x61, 0x74, 0x65, 0x41, 0x70, 0x70, 0x52, 0x65, 0x71,
-	0x75, 0x65, 0x73, 0x74, 0x22, 0x10, 0x0a, 0x0e, 0x43, 0x72, 0x65, 0x61, 0x74, 0x65, 0x41, 0x70,
-	0x70, 0x52, 0x65, 0x70, 0x6c, 0x79, 0x22, 0x12, 0x0a, 0x10, 0x55, 0x70, 0x64, 0x61, 0x74, 0x65,
-	0x41, 0x70, 0x70, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x22, 0x10, 0x0a, 0x0e, 0x55, 0x70,
-	0x64, 0x61, 0x74, 0x65, 0x41, 0x70, 0x70, 0x52, 0x65, 0x70, 0x6c, 0x79, 0x22, 0x12, 0x0a, 0x10,
-	0x44, 0x65, 0x6c, 0x65, 0x74, 0x65, 0x41, 0x70, 0x70, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74,
-	0x22, 0x10, 0x0a, 0x0e, 0x44, 0x65, 0x6c, 0x65, 0x74, 0x65, 0x41, 0x70, 0x70, 0x52, 0x65, 0x70,
-	0x6c, 0x79, 0x22, 0x0f, 0x0a, 0x0d, 0x47, 0x65, 0x74, 0x41, 0x70, 0x70, 0x52, 0x65, 0x71, 0x75,
-	0x65, 0x73, 0x74, 0x22, 0x0d, 0x0a, 0x0b, 0x47, 0x65, 0x74, 0x41, 0x70, 0x70, 0x52, 0x65, 0x70,
-	0x6c, 0x79, 0x22, 0x10, 0x0a, 0x0e, 0x4c, 0x69, 0x73, 0x74, 0x41, 0x70, 0x70, 0x52, 0x65, 0x71,
-	0x75, 0x65, 0x73, 0x74, 0x22, 0x0e, 0x0a, 0x0c, 0x4c, 0x69, 0x73, 0x74, 0x41, 0x70, 0x70, 0x52,
-	0x65, 0x70, 0x6c, 0x79, 0x32, 0xe3, 0x02, 0x0a, 0x03, 0x41, 0x70, 0x70, 0x12, 0x47, 0x0a, 0x09,
-	0x43, 0x72, 0x65, 0x61, 0x74, 0x65, 0x41, 0x70, 0x70, 0x12, 0x1d, 0x2e, 0x61, 0x70, 0x69, 0x2e,
-	0x6f, 0x70, 0x65, 0x72, 0x61, 0x74, 0x65, 0x2e, 0x43, 0x72, 0x65, 0x61, 0x74, 0x65, 0x41, 0x70,
-	0x70, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x1b, 0x2e, 0x61, 0x70, 0x69, 0x2e, 0x6f,
-	0x70, 0x65, 0x72, 0x61, 0x74, 0x65, 0x2e, 0x43, 0x72, 0x65, 0x61, 0x74, 0x65, 0x41, 0x70, 0x70,
-	0x52, 0x65, 0x70, 0x6c, 0x79, 0x12, 0x47, 0x0a, 0x09, 0x55, 0x70, 0x64, 0x61, 0x74, 0x65, 0x41,
-	0x70, 0x70, 0x12, 0x1d, 0x2e, 0x61, 0x70, 0x69, 0x2e, 0x6f, 0x70, 0x65, 0x72, 0x61, 0x74, 0x65,
-	0x2e, 0x55, 0x70, 0x64, 0x61, 0x74, 0x65, 0x41, 0x70, 0x70, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73,
-	0x74, 0x1a, 0x1b, 0x2e, 0x61, 0x70, 0x69, 0x2e, 0x6f, 0x70, 0x65, 0x72, 0x61, 0x74, 0x65, 0x2e,
-	0x55, 0x70, 0x64, 0x61, 0x74, 0x65, 0x41, 0x70, 0x70, 0x52, 0x65, 0x70, 0x6c, 0x79, 0x12, 0x47,
-	0x0a, 0x09, 0x44, 0x65, 0x6c, 0x65, 0x74, 0x65, 0x41, 0x70, 0x70, 0x12, 0x1d, 0x2e, 0x61, 0x70,
-	0x69, 0x2e, 0x6f, 0x70, 0x65, 0x72, 0x61, 0x74, 0x65, 0x2e, 0x44, 0x65, 0x6c, 0x65, 0x74, 0x65,
-	0x41, 0x70, 0x70, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x1b, 0x2e, 0x61, 0x70, 0x69,
-	0x2e, 0x6f, 0x70, 0x65, 0x72, 0x61, 0x74, 0x65, 0x2e, 0x44, 0x65, 0x6c, 0x65, 0x74, 0x65, 0x41,
-	0x70, 0x70, 0x52, 0x65, 0x70, 0x6c, 0x79, 0x12, 0x3e, 0x0a, 0x06, 0x47, 0x65, 0x74, 0x41, 0x70,
-	0x70, 0x12, 0x1a, 0x2e, 0x61, 0x70, 0x69, 0x2e, 0x6f, 0x70, 0x65, 0x72, 0x61, 0x74, 0x65, 0x2e,
-	0x47, 0x65, 0x74, 0x41, 0x70, 0x70, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x18, 0x2e,
-	0x61, 0x70, 0x69, 0x2e, 0x6f, 0x70, 0x65, 0x72, 0x61, 0x74, 0x65, 0x2e, 0x47, 0x65, 0x74, 0x41,
-	0x70, 0x70, 0x52, 0x65, 0x70, 0x6c, 0x79, 0x12, 0x41, 0x0a, 0x07, 0x4c, 0x69, 0x73, 0x74, 0x41,
-	0x70, 0x70, 0x12, 0x1b, 0x2e, 0x61, 0x70, 0x69, 0x2e, 0x6f, 0x70, 0x65, 0x72, 0x61, 0x74, 0x65,
-	0x2e, 0x4c, 0x69, 0x73, 0x74, 0x41, 0x70, 0x70, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a,
-	0x19, 0x2e, 0x61, 0x70, 0x69, 0x2e, 0x6f, 0x70, 0x65, 0x72, 0x61, 0x74, 0x65, 0x2e, 0x4c, 0x69,
-	0x73, 0x74, 0x41, 0x70, 0x70, 0x52, 0x65, 0x70, 0x6c, 0x79, 0x42, 0x32, 0x0a, 0x0b, 0x61, 0x70,
-	0x69, 0x2e, 0x6f, 0x70, 0x65, 0x72, 0x61, 0x74, 0x65, 0x50, 0x01, 0x5a, 0x21, 0x43, 0x6f, 0x6e,
-	0x74, 0x65, 0x6e, 0x74, 0x4d, 0x61, 0x6e, 0x61, 0x67, 0x65, 0x2f, 0x61, 0x70, 0x69, 0x2f, 0x6f,
-	0x70, 0x65, 0x72, 0x61, 0x74, 0x65, 0x3b, 0x6f, 0x70, 0x65, 0x72, 0x61, 0x74, 0x65, 0x62, 0x06,
-	0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
+	0x22, 0xf4, 0x02, 0x0a, 0x07, 0x43, 0x6f, 0x6e, 0x74, 0x65, 0x6e, 0x74, 0x12, 0x0e, 0x0a, 0x02,
+	0x69, 0x64, 0x18, 0x01, 0x20, 0x01, 0x28, 0x03, 0x52, 0x02, 0x69, 0x64, 0x12, 0x14, 0x0a, 0x05,
+	0x74, 0x69, 0x74, 0x6c, 0x65, 0x18, 0x02, 0x20, 0x01, 0x28, 0x09, 0x52, 0x05, 0x74, 0x69, 0x74,
+	0x6c, 0x65, 0x12, 0x1b, 0x0a, 0x09, 0x76, 0x69, 0x64, 0x65, 0x6f, 0x5f, 0x75, 0x72, 0x6c, 0x18,
+	0x03, 0x20, 0x01, 0x28, 0x09, 0x52, 0x08, 0x76, 0x69, 0x64, 0x65, 0x6f, 0x55, 0x72, 0x6c, 0x12,
+	0x16, 0x0a, 0x06, 0x61, 0x75, 0x74, 0x68, 0x6f, 0x72, 0x18, 0x04, 0x20, 0x01, 0x28, 0x09, 0x52,
+	0x06, 0x61, 0x75, 0x74, 0x68, 0x6f, 0x72, 0x12, 0x20, 0x0a, 0x0b, 0x44, 0x65, 0x73, 0x63, 0x72,
+	0x69, 0x70, 0x74, 0x69, 0x6f, 0x6e, 0x18, 0x05, 0x20, 0x01, 0x28, 0x09, 0x52, 0x0b, 0x44, 0x65,
+	0x73, 0x63, 0x72, 0x69, 0x70, 0x74, 0x69, 0x6f, 0x6e, 0x12, 0x1c, 0x0a, 0x09, 0x74, 0x68, 0x75,
+	0x6d, 0x62, 0x6e, 0x61, 0x69, 0x6c, 0x18, 0x06, 0x20, 0x01, 0x28, 0x09, 0x52, 0x09, 0x74, 0x68,
+	0x75, 0x6d, 0x62, 0x6e, 0x61, 0x69, 0x6c, 0x12, 0x1a, 0x0a, 0x08, 0x63, 0x61, 0x74, 0x65, 0x67,
+	0x6f, 0x72, 0x79, 0x18, 0x07, 0x20, 0x01, 0x28, 0x09, 0x52, 0x08, 0x63, 0x61, 0x74, 0x65, 0x67,
+	0x6f, 0x72, 0x79, 0x12, 0x1a, 0x0a, 0x08, 0x64, 0x75, 0x72, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x18,
+	0x08, 0x20, 0x01, 0x28, 0x03, 0x52, 0x08, 0x64, 0x75, 0x72, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x12,
+	0x1e, 0x0a, 0x0a, 0x72, 0x65, 0x73, 0x6f, 0x6c, 0x75, 0x74, 0x69, 0x6f, 0x6e, 0x18, 0x09, 0x20,
+	0x01, 0x28, 0x09, 0x52, 0x0a, 0x72, 0x65, 0x73, 0x6f, 0x6c, 0x75, 0x74, 0x69, 0x6f, 0x6e, 0x12,
+	0x1b, 0x0a, 0x09, 0x66, 0x69, 0x6c, 0x65, 0x5f, 0x73, 0x69, 0x7a, 0x65, 0x18, 0x0a, 0x20, 0x01,
+	0x28, 0x03, 0x52, 0x08, 0x66, 0x69, 0x6c, 0x65, 0x53, 0x69, 0x7a, 0x65, 0x12, 0x16, 0x0a, 0x06,
+	0x66, 0x6f, 0x72, 0x6d, 0x61, 0x74, 0x18, 0x0b, 0x20, 0x01, 0x28, 0x09, 0x52, 0x06, 0x66, 0x6f,
+	0x72, 0x6d, 0x61, 0x74, 0x12, 0x18, 0x0a, 0x07, 0x71, 0x75, 0x61, 0x6c, 0x69, 0x74, 0x79, 0x18,
+	0x0c, 0x20, 0x01, 0x28, 0x05, 0x52, 0x07, 0x71, 0x75, 0x61, 0x6c, 0x69, 0x74, 0x79, 0x12, 0x27,
+	0x0a, 0x0f, 0x61, 0x70, 0x70, 0x72, 0x6f, 0x76, 0x61, 0x6c, 0x5f, 0x73, 0x74, 0x61, 0x74, 0x75,
+	0x73, 0x18, 0x0d, 0x20, 0x01, 0x28, 0x05, 0x52, 0x0e, 0x61, 0x70, 0x70, 0x72, 0x6f, 0x76, 0x61,
+	0x6c, 0x53, 0x74, 0x61, 0x74, 0x75, 0x73, 0x22, 0x42, 0x0a, 0x10, 0x43, 0x72, 0x65, 0x61, 0x74,
+	0x65, 0x43, 0x6f, 0x6e, 0x74, 0x65, 0x6e, 0x74, 0x52, 0x65, 0x71, 0x12, 0x2e, 0x0a, 0x07, 0x63,
+	0x6f, 0x6e, 0x74, 0x65, 0x6e, 0x74, 0x18, 0x01, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x14, 0x2e, 0x61,
+	0x70, 0x69, 0x2e, 0x6f, 0x70, 0x65, 0x72, 0x61, 0x74, 0x65, 0x2e, 0x43, 0x6f, 0x6e, 0x74, 0x65,
+	0x6e, 0x74, 0x52, 0x07, 0x63, 0x6f, 0x6e, 0x74, 0x65, 0x6e, 0x74, 0x22, 0x12, 0x0a, 0x10, 0x43,
+	0x72, 0x65, 0x61, 0x74, 0x65, 0x43, 0x6f, 0x6e, 0x74, 0x65, 0x6e, 0x74, 0x52, 0x73, 0x70, 0x32,
+	0x54, 0x0a, 0x03, 0x41, 0x70, 0x70, 0x12, 0x4d, 0x0a, 0x0d, 0x43, 0x72, 0x65, 0x61, 0x74, 0x65,
+	0x43, 0x6f, 0x6e, 0x74, 0x65, 0x6e, 0x74, 0x12, 0x1d, 0x2e, 0x61, 0x70, 0x69, 0x2e, 0x6f, 0x70,
+	0x65, 0x72, 0x61, 0x74, 0x65, 0x2e, 0x43, 0x72, 0x65, 0x61, 0x74, 0x65, 0x43, 0x6f, 0x6e, 0x74,
+	0x65, 0x6e, 0x74, 0x52, 0x65, 0x71, 0x1a, 0x1d, 0x2e, 0x61, 0x70, 0x69, 0x2e, 0x6f, 0x70, 0x65,
+	0x72, 0x61, 0x74, 0x65, 0x2e, 0x43, 0x72, 0x65, 0x61, 0x74, 0x65, 0x43, 0x6f, 0x6e, 0x74, 0x65,
+	0x6e, 0x74, 0x52, 0x73, 0x70, 0x42, 0x32, 0x0a, 0x0b, 0x61, 0x70, 0x69, 0x2e, 0x6f, 0x70, 0x65,
+	0x72, 0x61, 0x74, 0x65, 0x50, 0x01, 0x5a, 0x21, 0x43, 0x6f, 0x6e, 0x74, 0x65, 0x6e, 0x74, 0x4d,
+	0x61, 0x6e, 0x61, 0x67, 0x65, 0x2f, 0x61, 0x70, 0x69, 0x2f, 0x6f, 0x70, 0x65, 0x72, 0x61, 0x74,
+	0x65, 0x3b, 0x6f, 0x70, 0x65, 0x72, 0x61, 0x74, 0x65, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f,
+	0x33,
 }
 
 var (
@@ -457,35 +320,21 @@ func file_operate_app_proto_rawDescGZIP() []byte {
 	return file_operate_app_proto_rawDescData
 }
 
-var file_operate_app_proto_msgTypes = make([]protoimpl.MessageInfo, 10)
+var file_operate_app_proto_msgTypes = make([]protoimpl.MessageInfo, 3)
 var file_operate_app_proto_goTypes = []interface{}{
-	(*CreateAppRequest)(nil), // 0: api.operate.CreateAppRequest
-	(*CreateAppReply)(nil),   // 1: api.operate.CreateAppReply
-	(*UpdateAppRequest)(nil), // 2: api.operate.UpdateAppRequest
-	(*UpdateAppReply)(nil),   // 3: api.operate.UpdateAppReply
-	(*DeleteAppRequest)(nil), // 4: api.operate.DeleteAppRequest
-	(*DeleteAppReply)(nil),   // 5: api.operate.DeleteAppReply
-	(*GetAppRequest)(nil),    // 6: api.operate.GetAppRequest
-	(*GetAppReply)(nil),      // 7: api.operate.GetAppReply
-	(*ListAppRequest)(nil),   // 8: api.operate.ListAppRequest
-	(*ListAppReply)(nil),     // 9: api.operate.ListAppReply
+	(*Content)(nil),          // 0: api.operate.Content
+	(*CreateContentReq)(nil), // 1: api.operate.CreateContentReq
+	(*CreateContentRsp)(nil), // 2: api.operate.CreateContentRsp
 }
 var file_operate_app_proto_depIdxs = []int32{
-	0, // 0: api.operate.App.CreateApp:input_type -> api.operate.CreateAppRequest
-	2, // 1: api.operate.App.UpdateApp:input_type -> api.operate.UpdateAppRequest
-	4, // 2: api.operate.App.DeleteApp:input_type -> api.operate.DeleteAppRequest
-	6, // 3: api.operate.App.GetApp:input_type -> api.operate.GetAppRequest
-	8, // 4: api.operate.App.ListApp:input_type -> api.operate.ListAppRequest
-	1, // 5: api.operate.App.CreateApp:output_type -> api.operate.CreateAppReply
-	3, // 6: api.operate.App.UpdateApp:output_type -> api.operate.UpdateAppReply
-	5, // 7: api.operate.App.DeleteApp:output_type -> api.operate.DeleteAppReply
-	7, // 8: api.operate.App.GetApp:output_type -> api.operate.GetAppReply
-	9, // 9: api.operate.App.ListApp:output_type -> api.operate.ListAppReply
-	5, // [5:10] is the sub-list for method output_type
-	0, // [0:5] is the sub-list for method input_type
-	0, // [0:0] is the sub-list for extension type_name
-	0, // [0:0] is the sub-list for extension extendee
-	0, // [0:0] is the sub-list for field type_name
+	0, // 0: api.operate.CreateContentReq.content:type_name -> api.operate.Content
+	1, // 1: api.operate.App.CreateContent:input_type -> api.operate.CreateContentReq
+	2, // 2: api.operate.App.CreateContent:output_type -> api.operate.CreateContentRsp
+	2, // [2:3] is the sub-list for method output_type
+	1, // [1:2] is the sub-list for method input_type
+	1, // [1:1] is the sub-list for extension type_name
+	1, // [1:1] is the sub-list for extension extendee
+	0, // [0:1] is the sub-list for field type_name
 }
 
 func init() { file_operate_app_proto_init() }
@@ -495,7 +344,7 @@ func file_operate_app_proto_init() {
 	}
 	if !protoimpl.UnsafeEnabled {
 		file_operate_app_proto_msgTypes[0].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*CreateAppRequest); i {
+			switch v := v.(*Content); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -507,7 +356,7 @@ func file_operate_app_proto_init() {
 			}
 		}
 		file_operate_app_proto_msgTypes[1].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*CreateAppReply); i {
+			switch v := v.(*CreateContentReq); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -519,91 +368,7 @@ func file_operate_app_proto_init() {
 			}
 		}
 		file_operate_app_proto_msgTypes[2].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*UpdateAppRequest); i {
-			case 0:
-				return &v.state
-			case 1:
-				return &v.sizeCache
-			case 2:
-				return &v.unknownFields
-			default:
-				return nil
-			}
-		}
-		file_operate_app_proto_msgTypes[3].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*UpdateAppReply); i {
-			case 0:
-				return &v.state
-			case 1:
-				return &v.sizeCache
-			case 2:
-				return &v.unknownFields
-			default:
-				return nil
-			}
-		}
-		file_operate_app_proto_msgTypes[4].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*DeleteAppRequest); i {
-			case 0:
-				return &v.state
-			case 1:
-				return &v.sizeCache
-			case 2:
-				return &v.unknownFields
-			default:
-				return nil
-			}
-		}
-		file_operate_app_proto_msgTypes[5].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*DeleteAppReply); i {
-			case 0:
-				return &v.state
-			case 1:
-				return &v.sizeCache
-			case 2:
-				return &v.unknownFields
-			default:
-				return nil
-			}
-		}
-		file_operate_app_proto_msgTypes[6].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*GetAppRequest); i {
-			case 0:
-				return &v.state
-			case 1:
-				return &v.sizeCache
-			case 2:
-				return &v.unknownFields
-			default:
-				return nil
-			}
-		}
-		file_operate_app_proto_msgTypes[7].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*GetAppReply); i {
-			case 0:
-				return &v.state
-			case 1:
-				return &v.sizeCache
-			case 2:
-				return &v.unknownFields
-			default:
-				return nil
-			}
-		}
-		file_operate_app_proto_msgTypes[8].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*ListAppRequest); i {
-			case 0:
-				return &v.state
-			case 1:
-				return &v.sizeCache
-			case 2:
-				return &v.unknownFields
-			default:
-				return nil
-			}
-		}
-		file_operate_app_proto_msgTypes[9].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*ListAppReply); i {
+			switch v := v.(*CreateContentRsp); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -621,7 +386,7 @@ func file_operate_app_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: file_operate_app_proto_rawDesc,
 			NumEnums:      0,
-			NumMessages:   10,
+			NumMessages:   3,
 			NumExtensions: 0,
 			NumServices:   1,
 		},

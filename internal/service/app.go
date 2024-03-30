@@ -8,9 +8,9 @@ import (
 type AppService struct {
 	operate.UnimplementedAppServer
 
-	uc *biz.GreeterUsecase
+	uc *biz.ContentUsecase
 }
 
-func NewAppService(uc *biz.GreeterUsecase) *AppService {
+func NewAppService(uc *biz.ContentUsecase) *AppService {
 	return &AppService{uc: uc}
 }

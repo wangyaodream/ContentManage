@@ -19,22 +19,15 @@ import (
 const _ = grpc.SupportPackageIsVersion7
 
 const (
-	App_CreateApp_FullMethodName = "/api.operate.App/CreateApp"
-	App_UpdateApp_FullMethodName = "/api.operate.App/UpdateApp"
-	App_DeleteApp_FullMethodName = "/api.operate.App/DeleteApp"
-	App_GetApp_FullMethodName    = "/api.operate.App/GetApp"
-	App_ListApp_FullMethodName   = "/api.operate.App/ListApp"
+	App_CreateContent_FullMethodName = "/api.operate.App/CreateContent"
 )
 
 // AppClient is the client API for App service.
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type AppClient interface {
-	CreateApp(ctx context.Context, in *CreateAppRequest, opts ...grpc.CallOption) (*CreateAppReply, error)
-	UpdateApp(ctx context.Context, in *UpdateAppRequest, opts ...grpc.CallOption) (*UpdateAppReply, error)
-	DeleteApp(ctx context.Context, in *DeleteAppRequest, opts ...grpc.CallOption) (*DeleteAppReply, error)
-	GetApp(ctx context.Context, in *GetAppRequest, opts ...grpc.CallOption) (*GetAppReply, error)
-	ListApp(ctx context.Context, in *ListAppRequest, opts ...grpc.CallOption) (*ListAppReply, error)
+	// 创建内容
+	CreateContent(ctx context.Context, in *CreateContentReq, opts ...grpc.CallOption) (*CreateContentRsp, error)
 }
 
 type appClient struct {
@@ -45,45 +38,9 @@ func NewAppClient(cc grpc.ClientConnInterface) AppClient {
 	return &appClient{cc}
 }
 
-func (c *appClient) CreateApp(ctx context.Context, in *CreateAppRequest, opts ...grpc.CallOption) (*CreateAppReply, error) {
-	out := new(CreateAppReply)
-	err := c.cc.Invoke(ctx, App_CreateApp_FullMethodName, in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *appClient) UpdateApp(ctx context.Context, in *UpdateAppRequest, opts ...grpc.CallOption) (*UpdateAppReply, error) {
-	out := new(UpdateAppReply)
-	err := c.cc.Invoke(ctx, App_UpdateApp_FullMethodName, in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *appClient) DeleteApp(ctx context.Context, in *DeleteAppRequest, opts ...grpc.CallOption) (*DeleteAppReply, error) {
-	out := new(DeleteAppReply)
-	err := c.cc.Invoke(ctx, App_DeleteApp_FullMethodName, in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *appClient) GetApp(ctx context.Context, in *GetAppRequest, opts ...grpc.CallOption) (*GetAppReply, error) {
-	out := new(GetAppReply)
-	err := c.cc.Invoke(ctx, App_GetApp_FullMethodName, in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *appClient) ListApp(ctx context.Context, in *ListAppRequest, opts ...grpc.CallOption) (*ListAppReply, error) {
-	out := new(ListAppReply)
-	err := c.cc.Invoke(ctx, App_ListApp_FullMethodName, in, out, opts...)
+func (c *appClient) CreateContent(ctx context.Context, in *CreateContentReq, opts ...grpc.CallOption) (*CreateContentRsp, error) {
+	out := new(CreateContentRsp)
+	err := c.cc.Invoke(ctx, App_CreateContent_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -94,11 +51,8 @@ func (c *appClient) ListApp(ctx context.Context, in *ListAppRequest, opts ...grp
 // All implementations must embed UnimplementedAppServer
 // for forward compatibility
 type AppServer interface {
-	CreateApp(context.Context, *CreateAppRequest) (*CreateAppReply, error)
-	UpdateApp(context.Context, *UpdateAppRequest) (*UpdateAppReply, error)
-	DeleteApp(context.Context, *DeleteAppRequest) (*DeleteAppReply, error)
-	GetApp(context.Context, *GetAppRequest) (*GetAppReply, error)
-	ListApp(context.Context, *ListAppRequest) (*ListAppReply, error)
+	// 创建内容
+	CreateContent(context.Context, *CreateContentReq) (*CreateContentRsp, error)
 	mustEmbedUnimplementedAppServer()
 }
 
@@ -106,20 +60,8 @@ type AppServer interface {
 type UnimplementedAppServer struct {
 }
 
-func (UnimplementedAppServer) CreateApp(context.Context, *CreateAppRequest) (*CreateAppReply, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method CreateApp not implemented")
-}
-func (UnimplementedAppServer) UpdateApp(context.Context, *UpdateAppRequest) (*UpdateAppReply, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method UpdateApp not implemented")
-}
-func (UnimplementedAppServer) DeleteApp(context.Context, *DeleteAppRequest) (*DeleteAppReply, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method DeleteApp not implemented")
-}
-func (UnimplementedAppServer) GetApp(context.Context, *GetAppRequest) (*GetAppReply, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method GetApp not implemented")
-}
-func (UnimplementedAppServer) ListApp(context.Context, *ListAppRequest) (*ListAppReply, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method ListApp not implemented")
+func (UnimplementedAppServer) CreateContent(context.Context, *CreateContentReq) (*CreateContentRsp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CreateContent not implemented")
 }
 func (UnimplementedAppServer) mustEmbedUnimplementedAppServer() {}
 
@@ -134,92 +76,20 @@ func RegisterAppServer(s grpc.ServiceRegistrar, srv AppServer) {
 	s.RegisterService(&App_ServiceDesc, srv)
 }
 
-func _App_CreateApp_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(CreateAppRequest)
+func _App_CreateContent_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(CreateContentReq)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(AppServer).CreateApp(ctx, in)
+		return srv.(AppServer).CreateContent(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: App_CreateApp_FullMethodName,
+		FullMethod: App_CreateContent_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(AppServer).CreateApp(ctx, req.(*CreateAppRequest))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _App_UpdateApp_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(UpdateAppRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(AppServer).UpdateApp(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: App_UpdateApp_FullMethodName,
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(AppServer).UpdateApp(ctx, req.(*UpdateAppRequest))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _App_DeleteApp_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(DeleteAppRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(AppServer).DeleteApp(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: App_DeleteApp_FullMethodName,
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(AppServer).DeleteApp(ctx, req.(*DeleteAppRequest))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _App_GetApp_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(GetAppRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(AppServer).GetApp(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: App_GetApp_FullMethodName,
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(AppServer).GetApp(ctx, req.(*GetAppRequest))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _App_ListApp_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(ListAppRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(AppServer).ListApp(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: App_ListApp_FullMethodName,
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(AppServer).ListApp(ctx, req.(*ListAppRequest))
+		return srv.(AppServer).CreateContent(ctx, req.(*CreateContentReq))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -232,24 +102,8 @@ var App_ServiceDesc = grpc.ServiceDesc{
 	HandlerType: (*AppServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
-			MethodName: "CreateApp",
-			Handler:    _App_CreateApp_Handler,
-		},
-		{
-			MethodName: "UpdateApp",
-			Handler:    _App_UpdateApp_Handler,
-		},
-		{
-			MethodName: "DeleteApp",
-			Handler:    _App_DeleteApp_Handler,
-		},
-		{
-			MethodName: "GetApp",
-			Handler:    _App_GetApp_Handler,
-		},
-		{
-			MethodName: "ListApp",
-			Handler:    _App_ListApp_Handler,
+			MethodName: "CreateContent",
+			Handler:    _App_CreateContent_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
