@@ -27,12 +27,21 @@ type Content struct {
 	CreatedAt      time.Time     `json:"created_at"`                   // 内容创建时间
 }
 
+type FindParams struct {
+	ID       int64
+	Author   string
+	Title    string
+	Page     int64
+	PageSize int64
+}
+
 // 内容实体对应的数据仓
 type ContentRepo interface {
 	Create(ctx context.Context, c *Content) error
 	Update(ctx context.Context, id int64, c *Content) error
 	IsExists(ctx context.Context, contentID int64) (bool, error)
 	Delete(ctx context.Context, id int64) error
+	Find(ctx context.Context, param *FindParams) ([]*Content, int64, error)
 }
 
 // GreeterUsecase is a Greeter usecase.
@@ -69,4 +78,14 @@ func (uc *ContentUsecase) DeleteContent(ctx context.Context, id int64) error {
 	}
 	// 内容存在就执行删除
 	return repo.Delete(ctx, id)
+}
+
+func (uc *ContentUsecase) FindContent(ctx context.Context, params *FindParams) ([]*Content, int64, error) {
+	repo := uc.repo
+	contents, total, err := repo.Find(ctx, params)
+	if err != nil {
+		return nil, 0, err
+	}
+	return contents, total, nil
+
 }

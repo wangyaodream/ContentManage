@@ -24,14 +24,11 @@ func main() {
 
 	defer conn.Close()
 	client := operate.NewAppClient(conn)
-	reply, err := client.UpdateContent(context.Background(), &operate.UpdateContentReq{
-		Content: &operate.Content{
-			Id:          3,
-			Title:       "test content_manage create",
-			VideoUrl:    "https://example.com/video.mp4",
-			Author:      "wangyao",
-			Description: "test update",
-		},
+	reply, err := client.FindContent(context.Background(), &operate.FindContentReq{
+		Id:       0,
+		Author:   "wangyao",
+		Page:     1,
+		PageSize: 1,
 	})
 	if err != nil {
 		log.Fatal(err)

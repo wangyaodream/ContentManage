@@ -114,3 +114,65 @@ func (c *contentRepo) Delete(ctx context.Context, id int64) error {
 	}
 	return nil
 }
+
+func (c *contentRepo) Find(ctx context.Context, params *biz.FindParams) ([]*biz.Content, int64, error) {
+	db := c.data.db
+	query := db.Model(&ContentDetail{})
+
+	if params.ID != 0 {
+		query = query.Where("id = ?", params.ID)
+	}
+
+	if params.Author != "" {
+		query = query.Where("author = ?", params.Author)
+	}
+
+	if params.Title != "" {
+		query = query.Where("title = ?", params.Title)
+	}
+
+	var total int64
+	if err := query.Count(&total).Error; err != nil {
+		return nil, 0, err
+	}
+
+	var page, pageSize = 1, 10
+	if params.Page > 0 {
+		page = int(params.Page)
+	}
+
+	if params.PageSize > 0 {
+		pageSize = int(params.PageSize)
+	}
+
+	offset := (page - 1) * pageSize
+
+	var results []*ContentDetail
+	if err := query.Offset(offset).Limit(pageSize).Find(&results).Error; err != nil {
+		c.log.WithContext(ctx).Errorf("content find errror = %v", err)
+		return nil, 0, err
+	}
+
+	var contents []*biz.Content
+	for _, r := range results {
+		contents = append(contents, &biz.Content{
+			ID:             r.ID,
+			Title:          r.Title,
+			VideoURL:       r.VideoURL,
+			Author:         r.Author,
+			Description:    r.Description,
+			Thumbnail:      r.Thumbnail,
+			Category:       r.Category,
+			Duration:       r.Duration,
+			Resolution:     r.Resolution,
+			FileSize:       r.FileSize,
+			Format:         r.Format,
+			Quality:        r.Quality,
+			ApprovalStatus: r.ApprovalStatus,
+			CreatedAt:      r.CreatedAt,
+			UpdatedAt:      r.UpdatedAt,
+		})
+	}
+
+	return contents, total, nil
+}

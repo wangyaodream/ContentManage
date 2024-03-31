@@ -13,6 +13,8 @@ service App {
 	rpc UpdateContent (UpdateContentReq) returns (UpdateContentRsp);				
 	// 删除内容
 	rpc DeleteContent (DeleteContentReq) returns (DeleteContentRsp);
+	// 查找内容
+	rpc FindContent (FindContentReq) returns (FindContentRsp);
 }
 
 message Content {
@@ -63,3 +65,17 @@ message DeleteContentReq {
 }
 
 message DeleteContentRsp {}
+
+message FindContentReq {
+	int64 id = 1;
+	string author = 2;
+	string title = 3;
+	int64 page = 4;
+	int64 page_size = 5;
+}
+
+message FindContentRsp {
+	int64 total = 1;
+	repeated Content contents = 2;
+	
+}
