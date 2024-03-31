@@ -6,6 +6,7 @@ import (
 	"time"
 
 	"github.com/go-kratos/kratos/v2/log"
+	"gorm.io/gorm"
 )
 
 type contentRepo struct {
@@ -85,6 +86,31 @@ func (c *contentRepo) Update(ctx context.Context, id int64, content *biz.Content
 	}
 	if err := db.Where("id = ?", id).Updates(&detail).Error; err != nil {
 		c.log.WithContext(ctx).Errorf("content update error = %v", err)
+	}
+	return nil
+}
+
+func (c *contentRepo) IsExists(ctx context.Context, id int64) (bool, error) {
+	db := c.data.db
+	var detail ContentDetail
+	err := db.Where("id = ?", id).First(&detail).Error
+	if err != nil {
+		c.log.WithContext(ctx).Errorf("Content isExists = [%v]", err)
+		return false, err
+	}
+
+	if err == gorm.ErrRecordNotFound {
+		// 表示查询成功，但是没找到指定条目
+		return false, nil
+	}
+	return true, nil
+}
+
+func (c *contentRepo) Delete(ctx context.Context, id int64) error {
+	db := c.data.db
+	if err := db.Where("id = ?", id).Delete(&ContentDetail{}).Error; err != nil {
+		c.log.WithContext(ctx).Errorf("content delete error = %v", err)
+		return err
 	}
 	return nil
 }

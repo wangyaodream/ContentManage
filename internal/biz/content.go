@@ -2,6 +2,7 @@ package biz
 
 import (
 	"context"
+	"errors"
 	"time"
 
 	"github.com/go-kratos/kratos/v2/log"
@@ -28,8 +29,10 @@ type Content struct {
 
 // 内容实体对应的数据仓
 type ContentRepo interface {
-	Create(context.Context, *Content) error
-	Update(context.Context, int64, *Content) error
+	Create(ctx context.Context, c *Content) error
+	Update(ctx context.Context, id int64, c *Content) error
+	IsExists(ctx context.Context, contentID int64) (bool, error)
+	Delete(ctx context.Context, id int64) error
 }
 
 // GreeterUsecase is a Greeter usecase.
@@ -52,4 +55,18 @@ func (uc *ContentUsecase) CreateContent(ctx context.Context, c *Content) error {
 func (uc *ContentUsecase) UpdateContent(ctx context.Context, c *Content) error {
 	uc.log.WithContext(ctx).Infof("CreateGreeter: %+v", c)
 	return uc.repo.Update(ctx, c.ID, c)
+}
+
+func (uc *ContentUsecase) DeleteContent(ctx context.Context, id int64) error {
+	// 首先检查条目是否存在
+	repo := uc.repo
+	isExists, err := repo.IsExists(ctx, id)
+	if err != nil {
+		return err
+	}
+	if !isExists {
+		return errors.New("内容不存在")
+	}
+	// 内容存在就执行删除
+	return repo.Delete(ctx, id)
 }

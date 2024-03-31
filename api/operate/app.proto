@@ -11,6 +11,8 @@ service App {
 	rpc CreateContent (CreateContentReq) returns (CreateContentRsp);
 	// 内容更新
 	rpc UpdateContent (UpdateContentReq) returns (UpdateContentRsp);				
+	// 删除内容
+	rpc DeleteContent (DeleteContentReq) returns (DeleteContentRsp);
 }
 
 message Content {
@@ -53,4 +55,11 @@ message CreateContentRsp {}
 message UpdateContentReq {
 	Content content = 1;
 }
+
 message UpdateContentRsp {}
+
+message DeleteContentReq {
+	int64 id = 1;
+}
+
+message DeleteContentRsp {}
