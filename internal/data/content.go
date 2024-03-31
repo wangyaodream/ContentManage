@@ -13,7 +13,7 @@ type contentRepo struct {
 	log  *log.Helper
 }
 type ContentDetail struct {
-	ID             int           `gorm:"column:id;primary_key"`  // 内容ID
+	ID             int64         `gorm:"column:id;primary_key"`  // 内容ID
 	Title          string        `gorm:"column:title"`           // 内容标题
 	Description    string        `gorm:"column:description"`     // 内容描述
 	Author         string        `gorm:"column:author"`          // 作者
@@ -60,7 +60,31 @@ func (c *contentRepo) Create(ctx context.Context, content *biz.Content) error {
 		ApprovalStatus: content.ApprovalStatus,
 	}
 	if err := db.Create(&detail).Error; err != nil {
-		c.log.Errorf("content create error = %v", err)
+		c.log.WithContext(ctx).Errorf("content create error = %v", err)
+	}
+	return nil
+}
+
+func (c *contentRepo) Update(ctx context.Context, id int64, content *biz.Content) error {
+	c.log.Infof("contntentRepo Update content = %+v", content)
+	db := c.data.db
+	detail := ContentDetail{
+		ID:             content.ID,
+		Title:          content.Title,
+		Description:    content.Description,
+		Author:         content.Author,
+		VideoURL:       content.VideoURL,
+		Thumbnail:      content.Thumbnail,
+		Category:       content.Category,
+		Duration:       content.Duration,
+		Resolution:     content.Resolution,
+		FileSize:       content.FileSize,
+		Format:         content.Format,
+		Quality:        content.Quality,
+		ApprovalStatus: content.ApprovalStatus,
+	}
+	if err := db.Where("id = ?", id).Updates(&detail).Error; err != nil {
+		c.log.WithContext(ctx).Errorf("content update error = %v", err)
 	}
 	return nil
 }

@@ -9,6 +9,7 @@ import (
 
 // 业务实体
 type Content struct {
+	ID             int64         `json:"id"`
 	Title          string        `json:"title" binding:"required"`     // 内容标题
 	VideoURL       string        `json:"video_url" binding:"required"` // 视频播放URL
 	Author         string        `json:"author" binding:"required"`    // 作者
@@ -28,6 +29,7 @@ type Content struct {
 // 内容实体对应的数据仓
 type ContentRepo interface {
 	Create(context.Context, *Content) error
+	Update(context.Context, int64, *Content) error
 }
 
 // GreeterUsecase is a Greeter usecase.
@@ -45,4 +47,9 @@ func NewContentUsecase(repo ContentRepo, logger log.Logger) *ContentUsecase {
 func (uc *ContentUsecase) CreateContent(ctx context.Context, c *Content) error {
 	uc.log.WithContext(ctx).Infof("CreateGreeter: %+v", c)
 	return uc.repo.Create(ctx, c)
+}
+
+func (uc *ContentUsecase) UpdateContent(ctx context.Context, c *Content) error {
+	uc.log.WithContext(ctx).Infof("CreateGreeter: %+v", c)
+	return uc.repo.Update(ctx, c.ID, c)
 }

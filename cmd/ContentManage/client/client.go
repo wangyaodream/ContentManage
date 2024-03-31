@@ -24,12 +24,13 @@ func main() {
 
 	defer conn.Close()
 	client := operate.NewAppClient(conn)
-	reply, err := client.CreateContent(context.Background(), &operate.CreateContentReq{
+	reply, err := client.UpdateContent(context.Background(), &operate.UpdateContentReq{
 		Content: &operate.Content{
+			Id:          3,
 			Title:       "test content_manage create",
 			VideoUrl:    "https://example.com/video.mp4",
-			Author:      "wang",
-			Description: "test",
+			Author:      "wangyao",
+			Description: "test update",
 		},
 	})
 	if err != nil {
